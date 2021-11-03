@@ -2,40 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleCharacterController : MonoBehaviour  
+public class SimpleCharacterController : MonoBehaviour
 {
-    [SerializeField] private RigidBody rb;
-    [SerializeField] private Vector3 velocity;
-    [SerializeField] [Range(-10, 10)] private float acceleration;
-    [SerializeField] private Vector3 directionVector;
-    //Define the speed at which the object moves
-    public float moveSpeed = 10;
+    [SerializeField] private Rigidbody rb = null;
+    [SerializeField] private Vector3 velocity = Vector3.zero;
+    [Range(-10, 10)]
+    [SerializeField] private float acceleration = 0.0f;
+    [SerializeField] private Vector3 directionVector = Vector3.zero;
+    [SerializeField] private Transform directionIndicatorTransform = null;
+
+    //public float moveSpeed = 10;
+    ////Define the speed at which the object moves.
 
     //public float velocity;
     //public float jumpForce = 20f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    //// Start is called before the first frame update
+    //void Start()
+    //{
 
+    //}
 
-    }
-
-    // Update is called once per frame
+    //// Update is called once per frame
     //void Update()
     //{
-    //velocity = 0;
-    //float horizontalInput = Input.GetAxis("Horizontal");
+    //    velocity = 0;
+    //    float horizontalInput = Input.GetAxis("Horizontal");
+    //    //Get the value of the Horizontal input axis.
 
-    // float verticalInput = Input.GetAxis("Vertical");
+    //    float verticalInput = Input.GetAxis("Vertical");
+    //    //Get the value of the Vertical input axis.
 
-    //transform.Translate(new Vector3(horizontalInput, 0, verticalInput) * moveSpeed * Time.deltaTime);
+    //    transform.Translate(new Vector3(horizontalInput, 0, verticalInput) * moveSpeed * Time.deltaTime);
+    //    //Move the object to XYZ coordinates defined as horizontalInput, 0, and verticalInput respectively.
 
-    //if(verticalInput.GetKeyDown(KeyCode.Space))
-    //{
-    //velocity = jumpForce;
-    //}
-    //transform.Translate(new Vector3(0, velocity, 0) * Time.deltaTime);
+    //    if (Input.GetKeyDown(KeyCode.Space))
+    //    {
+    //        velocity = jumpForce;
+    //    }
+
+    //    transform.Translate(new Vector3(0, velocity, 0) * Time.deltaTime);
     //}
 
     private void FixedUpdate()
@@ -46,11 +52,10 @@ public class SimpleCharacterController : MonoBehaviour
 
         //float verticalInput = Input.GetAxis("Vertical");
 
-        //Vector3 direction = new Vector3(horizontalInput, 0, verticalInput);
+        //this. directionVector = new Vector3(horizontalInput, 0, verticalInput);
 
-        //this.velocity = ReadOnlyCollectionBase.velocity;
-        directionVector = this.directionIndicatorTransform.position = this.transform.position;
-        
+        directionVector = this.directionIndicatorTransform.position - this.transform.position;
+
         this.velocity += directionVector.normalized * (acceleration * Time.deltaTime);
 
         this.rb.velocity = this.velocity;
